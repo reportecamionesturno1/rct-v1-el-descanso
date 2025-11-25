@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RCT – Mina El Descanso</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/img/logo_drummond.png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Barra superior -->
+  <header class="border-bottom bg-body sticky-top">
+    <div class="container py-2 d-flex align-items-center justify-content-between gap-2">
+      <div class="d-flex align-items-center gap-2">
+        <img src="assets/img/logo_drummond.png" alt="Drummond" width="28" height="28">
+        <span class="badge text-bg-dark">RCT</span>
+        <strong class="ms-2">Mina El Descanso</strong>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button id="btnTheme" class="btn btn-sm btn-outline-secondary" title="Tema claro/oscuro">🌓</button>
+        <button id="btnLang" class="btn btn-sm btn-outline-secondary" title="Idioma">ES</button>
+        <button id="btnHistory" class="btn btn-sm btn-outline-secondary">🕘 Historial</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-4">
+
+    <!-- KPIs -->
+    <section id="kpis" class="row g-3 mb-3">
+      <div class="col-12 col-md-3">
+        <div class="kpi card text-center">
+          <div class="card-body">
+            <div class="kpi-title">Operativos</div>
+            <div class="kpi-value" id="kpiOper">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="kpi card text-center">
+          <div class="card-body">
+            <div class="kpi-title">Down</div>
+            <div class="kpi-value" id="kpiDown">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="kpi card text-center">
+          <div class="card-body">
+            <div class="kpi-title">Hallazgos</div>
+            <div class="kpi-value" id="kpiFind">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="kpi card text-center">
+          <div class="card-body">
+            <div class="kpi-title">Disponibilidad %</div>
+            <div class="kpi-value" id="kpiAvail">0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegación de pasos -->
+    <ul id="wizardNav" class="nav nav-pills mb-3">
+      <li class="nav-item"><button class="nav-link active" data-step="enc">Encabezado</button></li>
+      <li class="nav-item"><button class="nav-link" data-step="eq">Equipos</button></li>
+      <li class="nav-item"><button class="nav-link" data-step="seg">Seguridad</button></li>
+      <li class="nav-item"><button class="nav-link" data-step="obs">Observaciones</button></li>
+      <li class="nav-item"><button class="nav-link" data-step="sum">Resumen</button></li>
+    </ul>
+
+    <!-- Paso: Encabezado -->
+    <section class="card step" data-step="enc">
+      <div class="card-body">
+        <h5 class="card-title">Encabezado</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-3">
+            <label class="form-label">Fecha</label>
+            <input id="fechaInput" type="text" class="form-control" placeholder="dd/mm/aaaa">
+          </div>
+
+          <div class="col-12 col-md-3">
+            <label class="form-label" data-role="label-turno">Grupo</label>
+            <select id="grupoInput" class="form-select">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <label class="form-label" data-role="label-dia">Turno</label>
+            <select id="turnoDN" class="form-select">
+              <option value="Día">Día</option>
+              <option value="Noche">Noche</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <label class="form-label">Supervisores</label>
+            <input id="supInput" type="text" class="form-control" placeholder="Nombres – áreas">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Responsable RCT</label>
+            <input id="respInput" type="text" class="form-control" placeholder="Nombre y cargo">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paso: Equipos (Buses / Varados) -->
+    <section class="card step d-none" data-step="eq">
+      <div class="card-body">
+        <h5 class="card-title">Equipos</h5>
+
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-4">
+            <label class="form-label">Bahía</label>
+            <input id="inBahia" class="form-control" placeholder="R5, R14, etc.">
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label">Hora</label>
+            <input id="inHora" class="form-control" placeholder="06:10">
+          </div>
+          <div class="col-12 col-md-3">
+            <button id="btnAddBus" class="btn btn-primary w-100">+ Agregar bus</button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+          <table class="table table-sm table-bordered table-striped align-middle table-compact" id="tblBuses">
+            <thead class="table-light">
+              <tr><th>Bahía</th><th>Hora</th><th style="width:80px">Acción</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-3">
+            <label class="form-label">Camión</label>
+            <input id="inCamion" class="form-control" placeholder="2381">
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label">Ubicación</label>
+            <input id="inUbic" class="form-control" placeholder="Bahía R5, Taller, etc.">
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label">Razón</label>
+            <input id="inRazon" class="form-control" placeholder="Fuga de aceite motor">
+          </div>
+          <div class="col-12 col-md-1">
+            <button id="btnAddVarado" class="btn btn-primary w-100">+ Agregar</button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+          <table class="table table-sm table-bordered table-striped align-middle table-compact" id="tblVarados">
+            <thead class="table-light">
+              <tr><th>Camión</th><th>Ubicación</th><th>Razón</th><th style="width:80px">Acción</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Paso: Seguridad (Comentarios) -->
+    <section class="card step d-none" data-step="seg">
+      <div class="card-body">
+        <h5 class="card-title">Seguridad / Comentarios</h5>
+
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-3">
+            <label class="form-label">Autor</label>
+            <input id="inAutor" class="form-control" placeholder="Nombre">
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label">Tipo</label>
+            <input id="inTipo" class="form-control" placeholder="Hallazgo, Nota...">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Comentario</label>
+            <input id="inComentario" class="form-control" placeholder="Detalle del comentario">
+          </div>
+          <div class="col-12 col-md-2">
+            <button id="btnAddCom" class="btn btn-primary w-100">+ Agregar</button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+          <table class="table table-sm table-bordered table-striped align-middle table-compact" id="tblComentarios">
+            <thead class="table-light">
+              <tr><th>Fecha/Hora</th><th>Autor</th><th>Tipo</th><th>Comentario</th><th style="width:80px">Acción</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Paso: Observaciones (placeholder) -->
+    <section class="card step d-none" data-step="obs">
+      <div class="card-body">
+        <h5 class="card-title">Observaciones</h5>
+        <p class="text-muted mb-0">Puedes usar esta sección para notas generales del turno.</p>
+      </div>
+    </section>
+
+    <!-- Paso: Resumen -->
+    <section class="card step d-none" data-step="sum">
+      <div class="card-body">
+        <h5 class="card-title">Resumen & Firma</h5>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="chkAcepto">
+          <label class="form-check-label" for="chkAcepto">
+            Declaro que he revisado y apruebo el reporte conforme a la realidad operativa
+          </label>
+        </div>
+
+        <!-- Botones exportación -->
+        <div id="exportPanel" class="row g-3 mb-3">
+          <div class="col-md-6">
+            <button id="btnPrint" class="btn btn-outline-secondary w-100">
+              🖨️ Imprimir
+            </button>
+          </div>
+          <div class="col-md-6">
+            <button id="btnPDF" class="btn btn-outline-primary w-100">
+              📝 PDF
+            </button>
+          </div>
+
+          <div class="col-md-6">
+            <button id="btnJPG" class="btn btn-outline-primary w-100">
+              🖼️ JPG
+            </button>
+          </div>
+          <div class="col-md-6">
+            <button id="btnXLSX" class="btn btn-outline-success w-100">
+              📗 Excel
+            </button>
+          </div>
+
+          <div class="col-md-6">
+            <button id="btnCSV" class="btn btn-outline-success w-100">
+              🧾 CSV
+            </button>
+          </div>
+          <div class="col-md-6">
+            <button id="btnJSON" class="btn btn-outline-dark w-100">
+              { } JSON
+            </button>
+          </div>
+        </div>
+
+        <!-- Vista de impresión/exportación -->
+        <div class="print-wrapper">
+          <div id="printArea" class="p-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <img src="assets/img/logo_drummond.png" alt="" style="height:36px">
+              <img src="assets/img/yo-estoy-con.png" alt="" style="height:36px">
+            </div>
+
+            <h5 class="text-center fw-bold mb-3">REPORTE CAMBIO DE TURNO – MINA EL DESCANSO</h5>
+
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered table-sm align-middle">
+                <tbody id="printHead"></tbody>
+              </table>
+            </div>
+
+            <h6 class="fw-bold">HORA LLEGADA BUSES A BAHÍAS</h6>
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered table-sm align-middle">
+                <thead class="table-light"><tr><th>Bahía</th><th>Hora</th></tr></thead>
+                <tbody id="printBuses"></tbody>
+              </table>
+            </div>
+
+            <h6 class="fw-bold">EQUIPOS VARADOS EN CAMPO</h6>
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered table-sm align-middle">
+                <thead class="table-light"><tr><th>Camión</th><th>Ubicación</th><th>Razón</th></tr></thead>
+                <tbody id="printVarados"></tbody>
+              </table>
+            </div>
+
+            <h6 class="fw-bold">COMENTARIOS</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm align-middle">
+                <thead class="table-light"><tr><th>Fecha/Hora</th><th>Autor</th><th>Tipo</th><th>Comentario</th></tr></thead>
+                <tbody id="printCom"></tbody>
+              </table>
+            </div>
+
+            <div class="small text-muted mt-2">Hash: (pendiente) · QR: #</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Librerías -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

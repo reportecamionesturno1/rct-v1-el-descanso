@@ -1,0 +1,54 @@
+{
+  "ui": {
+    "history": "History",
+    "agregar": "Add",
+    "close": "Close",
+    "guardar": "Save",
+    "import": "Import template",
+    "comentarios": "Report comments",
+    "otro": "Other…"
+  },
+  "kpi": {
+    "operativos": "Operational",
+    "down": "Down",
+    "hallazgos": "Findings",
+    "disponibilidad": "Availability %"
+  },
+  "steps": {
+    "1": "Header",
+    "2": "Equipment",
+    "3": "Safety",
+    "4": "Remarks",
+    "5": "Summary"
+  },
+  "fields": {
+    "fecha": "Date",
+    "turno": "Shift",
+    "dia": "Day",
+    "supervisores": "Supervisors",
+    "responsable": "RCT Owner",
+    "comentarios": "Comments",
+    "contactoCabina": "Cab contact",
+    "contactoOficina": "Office contact",
+    "hallazgos": "Safety findings",
+    "lugar": "Location",
+    "nHallazgos": "# Findings",
+    "divulgado": "Disclosed?"
+  },
+  "tables": {
+    "buses": {
+      "title": "Bus arrival to bays",
+      "bahia": "Bay",
+      "hora": "Time"
+    },
+    "varados": {
+      "title": "Equipment down in field",
+      "camion": "Truck",
+      "ubicacion": "Location",
+      "razon": "Reason"
+    }
+  },
+  "signature": {
+    "accept": "I declare that I have reviewed and approve this report according to operational reality"
+  }
+}

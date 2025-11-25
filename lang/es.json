@@ -1,0 +1,54 @@
+{
+  "ui": {
+    "history": "Historial",
+    "agregar": "Agregar",
+    "close": "Cerrar",
+    "guardar": "Guardar",
+    "import": "Importar plantilla",
+    "comentarios": "Comentarios por reporte",
+    "otro": "Otro…"
+  },
+  "kpi": {
+    "operativos": "Operativos",
+    "down": "Down",
+    "hallazgos": "Hallazgos",
+    "disponibilidad": "Disponibilidad %"
+  },
+  "steps": {
+    "1": "Encabezado",
+    "2": "Equipos",
+    "3": "Seguridad",
+    "4": "Observaciones",
+    "5": "Resumen"
+  },
+  "fields": {
+    "fecha": "Fecha",
+    "turno": "Turno",
+    "dia": "Día",
+    "supervisores": "Supervisores",
+    "responsable": "Responsable RCT",
+    "comentarios": "Comentarios",
+    "contactoCabina": "Contacto en cabina",
+    "contactoOficina": "Contacto en oficina",
+    "hallazgos": "Hallazgos de seguridad",
+    "lugar": "Lugar",
+    "nHallazgos": "N° hallazgos",
+    "divulgado": "¿Se divulgó?"
+  },
+  "tables": {
+    "buses": {
+      "title": "Hora llegada buses a bahías",
+      "bahia": "Bahía",
+      "hora": "Hora"
+    },
+    "varados": {
+      "title": "Equipos varados en campo",
+      "camion": "Camión",
+      "ubicacion": "Ubicación",
+      "razon": "Razón"
+    }
+  },
+  "signature": {
+    "accept": "Declaro que he revisado y apruebo el reporte conforme a la realidad operativa"
+  }
+}
